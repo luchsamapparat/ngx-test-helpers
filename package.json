@@ -1,6 +1,6 @@
 {
   "name": "ngx-test-helpers",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "dist/ngx-test-helpers.js",
   "module": "src/index.ts",
