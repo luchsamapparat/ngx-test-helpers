@@ -2,11 +2,11 @@
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory(require("lodash"), require("@angular/core/testing"), require("@angular/core"), require("@ngrx/effects/testing"), require("@ngrx/store"));
 	else if(typeof define === 'function' && define.amd)
-		define("angular-test-helpers", ["lodash", "@angular/core/testing", "@angular/core", "@ngrx/effects/testing", "@ngrx/store"], factory);
+		define("ngx-test-helpers", ["lodash", "@angular/core/testing", "@angular/core", "@ngrx/effects/testing", "@ngrx/store"], factory);
 	else if(typeof exports === 'object')
-		exports["angular-test-helpers"] = factory(require("lodash"), require("@angular/core/testing"), require("@angular/core"), require("@ngrx/effects/testing"), require("@ngrx/store"));
+		exports["ngx-test-helpers"] = factory(require("lodash"), require("@angular/core/testing"), require("@angular/core"), require("@ngrx/effects/testing"), require("@ngrx/store"));
 	else
-		root["angular-test-helpers"] = factory(root["lodash"], root["@angular/core/testing"], root["@angular/core"], root["@ngrx/effects/testing"], root["@ngrx/store"]);
+		root["ngx-test-helpers"] = factory(root["lodash"], root["@angular/core/testing"], root["@angular/core"], root["@ngrx/effects/testing"], root["@ngrx/store"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_5__, __WEBPACK_EXTERNAL_MODULE_7__, __WEBPACK_EXTERNAL_MODULE_8__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -304,4 +304,4 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_8__;
 /***/ })
 /******/ ]);
 });
-//# sourceMappingURL=angular-test-helpers.js.map
+//# sourceMappingURL=ngx-test-helpers.js.map

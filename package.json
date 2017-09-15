@@ -1,18 +1,18 @@
 {
-  "name": "angular-test-helpers",
+  "name": "ngx-test-helpers",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/angular-test-helpers.js",
+  "main": "dist/ngx-test-helpers.js",
   "module": "src/index.ts",
   "types": "types/index.d.ts",
   "scripts": {
     "clean": "rimraf dist types",
     "build": "webpack",
-    "prepublish": "run-s clean build"
+    "prepublishOnly": "run-s clean build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/luchsamapparat/angular-test-helpers.git"
+    "url": "git+https://github.com/luchsamapparat/ngx-test-helpers.git"
   },
   "keywords": [
     "angular",
@@ -23,9 +23,9 @@
   "author": "Marvin Luchs",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/luchsamapparat/angular-test-helpers/issues"
+    "url": "https://github.com/luchsamapparat/ngx-test-helpers/issues"
   },
-  "homepage": "https://github.com/luchsamapparat/angular-test-helpers#readme",
+  "homepage": "https://github.com/luchsamapparat/ngx-test-helpers#readme",
   "devDependencies": {
     "@types/jasmine": "^2.6.0",
     "eslint-config-luchsamapparat": "^2.0.1",

@@ -1,6 +1,6 @@
 const path = require('path');
 
-const libraryName = 'angular-test-helpers';
+const libraryName = 'ngx-test-helpers';
 
 module.exports = {
     entry: [
