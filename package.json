@@ -1,0 +1,49 @@
+{
+  "name": "angular-test-helpers",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/angular-test-helpers.js",
+  "module": "src/index.ts",
+  "types": "types/index.d.ts",
+  "scripts": {
+    "clean": "rimraf dist types",
+    "build": "webpack",
+    "prepublish": "run-s clean build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luchsamapparat/angular-test-helpers.git"
+  },
+  "keywords": [
+    "angular",
+    "jasmine",
+    "ngrx",
+    "test"
+  ],
+  "author": "Marvin Luchs",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luchsamapparat/angular-test-helpers/issues"
+  },
+  "homepage": "https://github.com/luchsamapparat/angular-test-helpers#readme",
+  "devDependencies": {
+    "@types/jasmine": "^2.6.0",
+    "eslint-config-luchsamapparat": "^2.0.1",
+    "npm-run-all": "^4.1.1",
+    "rimraf": "^2.6.2",
+    "ts-loader": "^2.3.7",
+    "tslint": "^5.7.0",
+    "tslint-config-luchsamapparat": "^1.0.0",
+    "tslint-loader": "^3.5.3",
+    "typescript": "^2.5.2",
+    "webpack": "^3.6.0"
+  },
+  "peerDependencies": {
+    "@angular/core": "^4.2.4",
+    "@ngrx/effects": "^4.0.5",
+    "@ngrx/store": "^4.0.3",
+    "@types/lodash": "^4.14.74",
+    "lodash": "^4.17.4",
+    "rxjs": "^5.4.3"
+  }
+}
