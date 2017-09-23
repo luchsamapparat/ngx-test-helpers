@@ -60,6 +60,14 @@ export function expectElementsFromFixture<T>(fixture: ComponentFixture<T>, domQu
     return expect(elementsFromFixture(fixture, domQuery));
 }
 
+export function expectFormElementFromFixture<T>(fixture: ComponentFixture<T>, formControlName: string): jasmine.Matchers<{}> {
+    return expect(elementFromFixture(fixture, getFormControlDomQuery(formControlName)));
+}
+
+export function expectFormElementsFromFixture<T>(fixture: ComponentFixture<T>, formControlName: string): jasmine.ArrayLikeMatchers<{}> {
+    return expect(elementsFromFixture(fixture, getFormControlDomQuery(formControlName)));
+}
+
 export function expectViewChildFromFixture<T>(fixture: ComponentFixture<T>, viewChildProperty: string) {
     return expect(viewChildFromFixture(fixture, viewChildProperty));
 }
@@ -86,7 +94,19 @@ export function elementsFromFixture<T>(fixture: ComponentFixture<T>, domQuery: s
     return elementsByQuery(nativeElement, domQuery);
 }
 
+export function formElement(rootElement: Element, formControlName: string): Element {
+    return elementByQuery(rootElement, getFormControlDomQuery(formControlName));
+}
+
+export function formElements(rootElement: Element, formControlName: string): Element[] {
+    return elementsByQuery(rootElement, getFormControlDomQuery(formControlName));
+}
+
 function getNativeElement<T>(fixture: ComponentFixture<T>): HTMLElement {
     fixture.detectChanges();
     return fixture.nativeElement;
+}
+
+function getFormControlDomQuery(formControlName: string): string {
+    return `[formcontrolname="${formControlName}"]`;
 }
