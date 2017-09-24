@@ -80,6 +80,10 @@ export function viewChildFromFixture<T>(fixture: ComponentFixture<T>, viewChildP
     return (<ElementRef> fixture.componentInstance[viewChildProperty].nativeElement);
 }
 
+export function formElementFromFixture<T>(fixture: ComponentFixture<T>, formControlName: string): Element {
+    return elementFromFixture(fixture, getFormControlDomQuery(formControlName));
+}
+
 export function elementFromFixture<T>(fixture: ComponentFixture<T>, domQuery?: string): Element {
     const nativeElement = getNativeElement(fixture);
     return isUndefined(domQuery) ? nativeElement : elementByQuery(nativeElement, domQuery);
@@ -89,17 +93,13 @@ export function childComponentsFromFixture<T>(fixture: ComponentFixture<{}>, dom
     return (<{}> elementsFromFixture(fixture, domQuery)) as T[];
 }
 
+export function formElementsFromFixture<T>(fixture: ComponentFixture<T>, formControlName: string): Element[] {
+    return elementsFromFixture(fixture, getFormControlDomQuery(formControlName));
+}
+
 export function elementsFromFixture<T>(fixture: ComponentFixture<T>, domQuery: string): Element[] {
     const nativeElement = getNativeElement(fixture);
     return elementsByQuery(nativeElement, domQuery);
-}
-
-export function formElement(rootElement: Element, formControlName: string): Element {
-    return elementByQuery(rootElement, getFormControlDomQuery(formControlName));
-}
-
-export function formElements(rootElement: Element, formControlName: string): Element[] {
-    return elementsByQuery(rootElement, getFormControlDomQuery(formControlName));
 }
 
 function getNativeElement<T>(fixture: ComponentFixture<T>): HTMLElement {

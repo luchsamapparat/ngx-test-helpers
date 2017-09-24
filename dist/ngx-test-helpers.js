@@ -92,11 +92,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (immutable) */ __webpack_exports__["expectComponent"] = expectComponent;
 /* harmony export (immutable) */ __webpack_exports__["expectElementFromFixture"] = expectElementFromFixture;
 /* harmony export (immutable) */ __webpack_exports__["expectElementsFromFixture"] = expectElementsFromFixture;
+/* harmony export (immutable) */ __webpack_exports__["expectFormElementFromFixture"] = expectFormElementFromFixture;
+/* harmony export (immutable) */ __webpack_exports__["expectFormElementsFromFixture"] = expectFormElementsFromFixture;
 /* harmony export (immutable) */ __webpack_exports__["expectViewChildFromFixture"] = expectViewChildFromFixture;
 /* harmony export (immutable) */ __webpack_exports__["componentFromFixture"] = componentFromFixture;
 /* harmony export (immutable) */ __webpack_exports__["viewChildFromFixture"] = viewChildFromFixture;
+/* harmony export (immutable) */ __webpack_exports__["formElementFromFixture"] = formElementFromFixture;
 /* harmony export (immutable) */ __webpack_exports__["elementFromFixture"] = elementFromFixture;
 /* harmony export (immutable) */ __webpack_exports__["childComponentsFromFixture"] = childComponentsFromFixture;
+/* harmony export (immutable) */ __webpack_exports__["formElementsFromFixture"] = formElementsFromFixture;
 /* harmony export (immutable) */ __webpack_exports__["elementsFromFixture"] = elementsFromFixture;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_core__);
@@ -150,6 +154,12 @@ function expectElementFromFixture(fixture, domQuery) {
 function expectElementsFromFixture(fixture, domQuery) {
     return expect(elementsFromFixture(fixture, domQuery));
 }
+function expectFormElementFromFixture(fixture, formControlName) {
+    return expect(elementFromFixture(fixture, getFormControlDomQuery(formControlName)));
+}
+function expectFormElementsFromFixture(fixture, formControlName) {
+    return expect(elementsFromFixture(fixture, getFormControlDomQuery(formControlName)));
+}
 function expectViewChildFromFixture(fixture, viewChildProperty) {
     return expect(viewChildFromFixture(fixture, viewChildProperty));
 }
@@ -159,12 +169,18 @@ function componentFromFixture(fixture) {
 function viewChildFromFixture(fixture, viewChildProperty) {
     return fixture.componentInstance[viewChildProperty].nativeElement;
 }
+function formElementFromFixture(fixture, formControlName) {
+    return elementFromFixture(fixture, getFormControlDomQuery(formControlName));
+}
 function elementFromFixture(fixture, domQuery) {
     var nativeElement = getNativeElement(fixture);
     return Object(__WEBPACK_IMPORTED_MODULE_2_lodash__["isUndefined"])(domQuery) ? nativeElement : Object(__WEBPACK_IMPORTED_MODULE_3__dom__["elementByQuery"])(nativeElement, domQuery);
 }
 function childComponentsFromFixture(fixture, domQuery) {
     return elementsFromFixture(fixture, domQuery);
+}
+function formElementsFromFixture(fixture, formControlName) {
+    return elementsFromFixture(fixture, getFormControlDomQuery(formControlName));
 }
 function elementsFromFixture(fixture, domQuery) {
     var nativeElement = getNativeElement(fixture);
@@ -173,6 +189,9 @@ function elementsFromFixture(fixture, domQuery) {
 function getNativeElement(fixture) {
     fixture.detectChanges();
     return fixture.nativeElement;
+}
+function getFormControlDomQuery(formControlName) {
+    return "[formcontrolname=\"" + formControlName + "\"]";
 }
 
 
