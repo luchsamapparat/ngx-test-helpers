@@ -55,11 +55,13 @@ export function expectActionToBeDispatched(fixture: ComponentFixture<{}>, action
 
     fixture.detectChanges();
 
-    return !isUndefined(storeDispatchSpy.calls
+    const dispatchActionCall = storeDispatchSpy.calls
         .all()
         .find(
             call => (!isUndefined(call.args[0]) && (call.args[0] === actionType))
-        ));
+        );
+
+    expect(dispatchActionCall).not.toBeUndefined();
 }
 
 function getStore<T>(): Store<T> {

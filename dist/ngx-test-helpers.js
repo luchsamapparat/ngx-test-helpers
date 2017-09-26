@@ -299,9 +299,10 @@ function getAppState(stateFn) {
 function expectActionToBeDispatched(fixture, actionType) {
     var storeDispatchSpy = spyOn(__WEBPACK_IMPORTED_MODULE_0__angular_core_testing__["TestBed"].get(__WEBPACK_IMPORTED_MODULE_2__ngrx_store__["Store"]), 'dispatch').and.callThrough();
     fixture.detectChanges();
-    return !Object(__WEBPACK_IMPORTED_MODULE_3_lodash__["isUndefined"])(storeDispatchSpy.calls
+    var dispatchActionCall = storeDispatchSpy.calls
         .all()
-        .find(function (call) { return (!Object(__WEBPACK_IMPORTED_MODULE_3_lodash__["isUndefined"])(call.args[0]) && (call.args[0] === actionType)); }));
+        .find(function (call) { return (!Object(__WEBPACK_IMPORTED_MODULE_3_lodash__["isUndefined"])(call.args[0]) && (call.args[0] === actionType)); });
+    expect(dispatchActionCall).not.toBeUndefined();
 }
 function getStore() {
     return __WEBPACK_IMPORTED_MODULE_0__angular_core_testing__["TestBed"].get(__WEBPACK_IMPORTED_MODULE_2__ngrx_store__["Store"]);
