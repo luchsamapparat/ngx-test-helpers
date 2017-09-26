@@ -58,7 +58,7 @@ export function expectActionToBeDispatched(fixture: ComponentFixture<{}>, action
     const dispatchActionCall = storeDispatchSpy.calls
         .all()
         .find(
-            call => (!isUndefined(call.args[0]) && (call.args[0] === actionType))
+            call => (!isUndefined(call.args[0]) && (call.args[0].type === actionType))
         );
 
     expect(dispatchActionCall).not.toBeUndefined();

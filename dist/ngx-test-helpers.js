@@ -301,7 +301,7 @@ function expectActionToBeDispatched(fixture, actionType) {
     fixture.detectChanges();
     var dispatchActionCall = storeDispatchSpy.calls
         .all()
-        .find(function (call) { return (!Object(__WEBPACK_IMPORTED_MODULE_3_lodash__["isUndefined"])(call.args[0]) && (call.args[0] === actionType)); });
+        .find(function (call) { return (!Object(__WEBPACK_IMPORTED_MODULE_3_lodash__["isUndefined"])(call.args[0]) && (call.args[0].type === actionType)); });
     expect(dispatchActionCall).not.toBeUndefined();
 }
 function getStore() {
