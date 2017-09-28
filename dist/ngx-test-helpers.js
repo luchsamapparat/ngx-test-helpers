@@ -120,11 +120,8 @@ var defaultModuleDef = {
     schemas: []
 };
 // tslint:disable-next-line:variable-name
-function configureComponentTestEnvironment(ComponentClass, moduleDef) {
+function configureComponentTestEnvironment(moduleDef) {
     configureTestEnvironment(mergeModuleDefs({
-        declarations: [
-            ComponentClass
-        ],
         schemas: [
             __WEBPACK_IMPORTED_MODULE_0__angular_core__["NO_ERRORS_SCHEMA"]
         ]

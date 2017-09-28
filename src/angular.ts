@@ -11,13 +11,10 @@ const defaultModuleDef: TestModuleMetadata = {
 };
 
 // tslint:disable-next-line:variable-name
-export function configureComponentTestEnvironment(ComponentClass: {}, moduleDef?: TestModuleMetadata) {
+export function configureComponentTestEnvironment(moduleDef: TestModuleMetadata) {
     configureTestEnvironment(
         mergeModuleDefs(
             {
-                declarations: [
-                    ComponentClass
-                ],
                 schemas: [
                     NO_ERRORS_SCHEMA
                 ]

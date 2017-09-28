@@ -1,7 +1,7 @@
 /// <reference types="jasmine" />
 import { ElementRef, Type } from '@angular/core';
 import { ComponentFixture, TestBed, TestModuleMetadata } from '@angular/core/testing';
-export declare function configureComponentTestEnvironment(ComponentClass: {}, moduleDef?: TestModuleMetadata): void;
+export declare function configureComponentTestEnvironment(moduleDef: TestModuleMetadata): void;
 export declare function configureTestEnvironment(moduleDef: TestModuleMetadata): typeof TestBed;
 export declare function mergeModuleDefs(...moduleDefs: TestModuleMetadata[]): TestModuleMetadata;
 export declare function createComponent<T>(component: Type<T>): ComponentFixture<T>;
