@@ -50,18 +50,27 @@ export function getAppState<T>(stateFn: (T) => void) {
     getStore().subscribe(appState => stateFn(appState));
 }
 
-export function expectActionToBeDispatched(fixture: ComponentFixture<{}>, actionType: {}) {
+export function expectActionToBeDispatched(fixture: ComponentFixture<{}>, actionType: {}, triggerFn: () => void) {
+    expect(triggerAndWatchForActionCall(fixture, actionType, triggerFn)).not.toBeUndefined();
+}
+
+export function expectActionNotToBeDispatched(fixture: ComponentFixture<{}>, actionType: {}, triggerFn: () => void) {
+    expect(triggerAndWatchForActionCall(fixture, actionType, triggerFn)).toBeUndefined();
+}
+
+// tslint:disable-next-line:no-empty
+function triggerAndWatchForActionCall(fixture: ComponentFixture<{}>, actionType: {}, triggerFn = () => {}) {
     const storeDispatchSpy = spyOn(TestBed.get(Store), 'dispatch').and.callThrough();
+
+    triggerFn();
 
     fixture.detectChanges();
 
-    const dispatchActionCall = storeDispatchSpy.calls
+    return storeDispatchSpy.calls
         .all()
         .find(
             call => (!isUndefined(call.args[0]) && (call.args[0].type === actionType))
         );
-
-    expect(dispatchActionCall).not.toBeUndefined();
 }
 
 function getStore<T>(): Store<T> {

@@ -254,6 +254,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (immutable) */ __webpack_exports__["getModuleDefForStore"] = getModuleDefForStore;
 /* harmony export (immutable) */ __webpack_exports__["getAppState"] = getAppState;
 /* harmony export (immutable) */ __webpack_exports__["expectActionToBeDispatched"] = expectActionToBeDispatched;
+/* harmony export (immutable) */ __webpack_exports__["expectActionNotToBeDispatched"] = expectActionNotToBeDispatched;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core_testing__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core_testing___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_core_testing__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ngrx_effects_testing__ = __webpack_require__(7);
@@ -293,13 +294,21 @@ function getModuleDefForStore(reducerConfig, appState) {
 function getAppState(stateFn) {
     getStore().subscribe(function (appState) { return stateFn(appState); });
 }
-function expectActionToBeDispatched(fixture, actionType) {
+function expectActionToBeDispatched(fixture, actionType, triggerFn) {
+    expect(triggerAndWatchForActionCall(fixture, actionType, triggerFn)).not.toBeUndefined();
+}
+function expectActionNotToBeDispatched(fixture, actionType, triggerFn) {
+    expect(triggerAndWatchForActionCall(fixture, actionType, triggerFn)).toBeUndefined();
+}
+// tslint:disable-next-line:no-empty
+function triggerAndWatchForActionCall(fixture, actionType, triggerFn) {
+    if (triggerFn === void 0) { triggerFn = function () { }; }
     var storeDispatchSpy = spyOn(__WEBPACK_IMPORTED_MODULE_0__angular_core_testing__["TestBed"].get(__WEBPACK_IMPORTED_MODULE_2__ngrx_store__["Store"]), 'dispatch').and.callThrough();
+    triggerFn();
     fixture.detectChanges();
-    var dispatchActionCall = storeDispatchSpy.calls
+    return storeDispatchSpy.calls
         .all()
         .find(function (call) { return (!Object(__WEBPACK_IMPORTED_MODULE_3_lodash__["isUndefined"])(call.args[0]) && (call.args[0].type === actionType)); });
-    expect(dispatchActionCall).not.toBeUndefined();
 }
 function getStore() {
     return __WEBPACK_IMPORTED_MODULE_0__angular_core_testing__["TestBed"].get(__WEBPACK_IMPORTED_MODULE_2__ngrx_store__["Store"]);
