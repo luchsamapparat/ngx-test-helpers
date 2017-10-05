@@ -50,11 +50,11 @@ export function getAppState<T>(stateFn: (T) => void) {
     getStore().subscribe(appState => stateFn(appState));
 }
 
-export function expectActionToBeDispatched(fixture: ComponentFixture<{}>, actionType: {}, triggerFn: () => void) {
+export function expectActionToBeDispatched(fixture: ComponentFixture<{}>, actionType: {}, triggerFn?: () => void) {
     expect(triggerAndWatchForActionCall(fixture, actionType, triggerFn)).not.toBeUndefined();
 }
 
-export function expectActionNotToBeDispatched(fixture: ComponentFixture<{}>, actionType: {}, triggerFn: () => void) {
+export function expectActionNotToBeDispatched(fixture: ComponentFixture<{}>, actionType: {}, triggerFn?: () => void) {
     expect(triggerAndWatchForActionCall(fixture, actionType, triggerFn)).toBeUndefined();
 }
 

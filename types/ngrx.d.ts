@@ -15,5 +15,5 @@ export declare function getModuleDefForStore<T>(reducerConfig: ReducerConfig<T>,
     }[];
 };
 export declare function getAppState<T>(stateFn: (T) => void): void;
-export declare function expectActionToBeDispatched(fixture: ComponentFixture<{}>, actionType: {}, triggerFn: () => void): void;
-export declare function expectActionNotToBeDispatched(fixture: ComponentFixture<{}>, actionType: {}, triggerFn: () => void): void;
+export declare function expectActionToBeDispatched(fixture: ComponentFixture<{}>, actionType: {}, triggerFn?: () => void): void;
+export declare function expectActionNotToBeDispatched(fixture: ComponentFixture<{}>, actionType: {}, triggerFn?: () => void): void;
