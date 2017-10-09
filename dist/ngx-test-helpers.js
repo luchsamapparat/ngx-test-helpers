@@ -85,23 +85,22 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_0__;
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (immutable) */ __webpack_exports__["setupComponentTest"] = setupComponentTest;
 /* harmony export (immutable) */ __webpack_exports__["configureComponentTestEnvironment"] = configureComponentTestEnvironment;
-/* harmony export (immutable) */ __webpack_exports__["configureTestEnvironment"] = configureTestEnvironment;
 /* harmony export (immutable) */ __webpack_exports__["mergeModuleDefs"] = mergeModuleDefs;
 /* harmony export (immutable) */ __webpack_exports__["createComponent"] = createComponent;
 /* harmony export (immutable) */ __webpack_exports__["expectComponent"] = expectComponent;
 /* harmony export (immutable) */ __webpack_exports__["expectElementFromFixture"] = expectElementFromFixture;
 /* harmony export (immutable) */ __webpack_exports__["expectElementsFromFixture"] = expectElementsFromFixture;
 /* harmony export (immutable) */ __webpack_exports__["expectFormElementFromFixture"] = expectFormElementFromFixture;
-/* harmony export (immutable) */ __webpack_exports__["expectFormElementsFromFixture"] = expectFormElementsFromFixture;
 /* harmony export (immutable) */ __webpack_exports__["expectViewChildFromFixture"] = expectViewChildFromFixture;
 /* harmony export (immutable) */ __webpack_exports__["componentFromFixture"] = componentFromFixture;
 /* harmony export (immutable) */ __webpack_exports__["viewChildFromFixture"] = viewChildFromFixture;
 /* harmony export (immutable) */ __webpack_exports__["formElementFromFixture"] = formElementFromFixture;
 /* harmony export (immutable) */ __webpack_exports__["elementFromFixture"] = elementFromFixture;
 /* harmony export (immutable) */ __webpack_exports__["childComponentsFromFixture"] = childComponentsFromFixture;
-/* harmony export (immutable) */ __webpack_exports__["formElementsFromFixture"] = formElementsFromFixture;
 /* harmony export (immutable) */ __webpack_exports__["elementsFromFixture"] = elementsFromFixture;
+/* harmony export (immutable) */ __webpack_exports__["configureTestEnvironment"] = configureTestEnvironment;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_core__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core_testing__ = __webpack_require__(2);
@@ -119,6 +118,20 @@ var defaultModuleDef = {
     declarations: [],
     schemas: []
 };
+function setupComponentTest(moduleDef) {
+    // workaround to improve component tests: prevent testing module from
+    // being reset after every spec
+    // see https://github.com/angular/angular/issues/12409
+    var resetTestingModuleFn = __WEBPACK_IMPORTED_MODULE_1__angular_core_testing__["TestBed"].resetTestingModule;
+    beforeAll(function () {
+        __WEBPACK_IMPORTED_MODULE_1__angular_core_testing__["TestBed"].resetTestingModule();
+        configureComponentTestEnvironment(moduleDef);
+        __WEBPACK_IMPORTED_MODULE_1__angular_core_testing__["TestBed"].resetTestingModule = function () { return __WEBPACK_IMPORTED_MODULE_1__angular_core_testing__["TestBed"]; };
+    });
+    afterAll(function () {
+        __WEBPACK_IMPORTED_MODULE_1__angular_core_testing__["TestBed"].resetTestingModule = resetTestingModuleFn;
+    });
+}
 // tslint:disable-next-line:variable-name
 function configureComponentTestEnvironment(moduleDef) {
     configureTestEnvironment(mergeModuleDefs({
@@ -127,10 +140,6 @@ function configureComponentTestEnvironment(moduleDef) {
         ]
     }, moduleDef))
         .compileComponents();
-}
-function configureTestEnvironment(moduleDef) {
-    return __WEBPACK_IMPORTED_MODULE_1__angular_core_testing__["TestBed"]
-        .configureTestingModule(moduleDef);
 }
 function mergeModuleDefs() {
     var moduleDefs = [];
@@ -154,9 +163,6 @@ function expectElementsFromFixture(fixture, domQuery) {
 function expectFormElementFromFixture(fixture, formControlName) {
     return expect(elementFromFixture(fixture, getFormControlDomQuery(formControlName)));
 }
-function expectFormElementsFromFixture(fixture, formControlName) {
-    return expect(elementsFromFixture(fixture, getFormControlDomQuery(formControlName)));
-}
 function expectViewChildFromFixture(fixture, viewChildProperty) {
     return expect(viewChildFromFixture(fixture, viewChildProperty));
 }
@@ -176,12 +182,13 @@ function elementFromFixture(fixture, domQuery) {
 function childComponentsFromFixture(fixture, domQuery) {
     return elementsFromFixture(fixture, domQuery);
 }
-function formElementsFromFixture(fixture, formControlName) {
-    return elementsFromFixture(fixture, getFormControlDomQuery(formControlName));
-}
 function elementsFromFixture(fixture, domQuery) {
     var nativeElement = getNativeElement(fixture);
     return Object(__WEBPACK_IMPORTED_MODULE_3__dom__["elementsByQuery"])(nativeElement, domQuery);
+}
+function configureTestEnvironment(moduleDef) {
+    return __WEBPACK_IMPORTED_MODULE_1__angular_core_testing__["TestBed"]
+        .configureTestingModule(moduleDef);
 }
 function getNativeElement(fixture) {
     fixture.detectChanges();

@@ -33,7 +33,7 @@ export function configureEffectsTestEnvironment<T>(
     );
 }
 
-export function getModuleDefForStore<T>(reducerConfig: ReducerConfig<T>, appState?: T) {
+export function getModuleDefForStore<T>(reducerConfig: ReducerConfig<T>, appState?: T): TestModuleMetadata {
     return {
         imports: [
             StoreModule.forRoot(reducerConfig.injectionToken, {
@@ -50,16 +50,16 @@ export function getAppState<T>(stateFn: (T) => void) {
     getStore().subscribe(appState => stateFn(appState));
 }
 
-export function expectActionToBeDispatched(fixture: ComponentFixture<{}>, actionType: {}, triggerFn?: () => void) {
+export function expectActionToBeDispatched(fixture: ComponentFixture<{}>, actionType: string, triggerFn?: () => void) {
     expect(triggerAndWatchForActionCall(fixture, actionType, triggerFn)).not.toBeUndefined();
 }
 
-export function expectActionNotToBeDispatched(fixture: ComponentFixture<{}>, actionType: {}, triggerFn?: () => void) {
+export function expectActionNotToBeDispatched(fixture: ComponentFixture<{}>, actionType: string, triggerFn?: () => void) {
     expect(triggerAndWatchForActionCall(fixture, actionType, triggerFn)).toBeUndefined();
 }
 
 // tslint:disable-next-line:no-empty
-function triggerAndWatchForActionCall(fixture: ComponentFixture<{}>, actionType: {}, triggerFn = () => {}) {
+function triggerAndWatchForActionCall(fixture: ComponentFixture<{}>, actionType: string, triggerFn = () => {}) {
     const storeDispatchSpy = spyOn(TestBed.get(Store), 'dispatch').and.callThrough();
 
     triggerFn();

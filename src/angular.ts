@@ -10,6 +10,24 @@ const defaultModuleDef: TestModuleMetadata = {
     schemas: []
 };
 
+export function setupComponentTest(moduleDef: TestModuleMetadata) {
+    // workaround to improve component tests: prevent testing module from
+    // being reset after every spec
+    // see https://github.com/angular/angular/issues/12409
+
+    const resetTestingModuleFn = TestBed.resetTestingModule;
+
+    beforeAll(() => {
+        TestBed.resetTestingModule();
+        configureComponentTestEnvironment(moduleDef);
+        TestBed.resetTestingModule = () => TestBed;
+    });
+
+    afterAll(() => {
+        TestBed.resetTestingModule = resetTestingModuleFn;
+    });
+}
+
 // tslint:disable-next-line:variable-name
 export function configureComponentTestEnvironment(moduleDef: TestModuleMetadata) {
     configureTestEnvironment(
@@ -23,11 +41,6 @@ export function configureComponentTestEnvironment(moduleDef: TestModuleMetadata)
         )
     )
         .compileComponents();
-}
-
-export function configureTestEnvironment(moduleDef: TestModuleMetadata) {
-    return TestBed
-        .configureTestingModule(moduleDef);
 }
 
 export function mergeModuleDefs(...moduleDefs: TestModuleMetadata[]) {
@@ -61,20 +74,16 @@ export function expectFormElementFromFixture<T>(fixture: ComponentFixture<T>, fo
     return expect(elementFromFixture(fixture, getFormControlDomQuery(formControlName)));
 }
 
-export function expectFormElementsFromFixture<T>(fixture: ComponentFixture<T>, formControlName: string): jasmine.ArrayLikeMatchers<{}> {
-    return expect(elementsFromFixture(fixture, getFormControlDomQuery(formControlName)));
-}
-
-export function expectViewChildFromFixture<T>(fixture: ComponentFixture<T>, viewChildProperty: string) {
+export function expectViewChildFromFixture<T>(fixture: ComponentFixture<T>, viewChildProperty: string): jasmine.Matchers<{}> {
     return expect(viewChildFromFixture(fixture, viewChildProperty));
 }
 
-export function componentFromFixture<T>(fixture: ComponentFixture<T>) {
+export function componentFromFixture<T>(fixture: ComponentFixture<T>): T {
     return fixture.componentInstance;
 }
 
-export function viewChildFromFixture<T>(fixture: ComponentFixture<T>, viewChildProperty: string) {
-    return (<ElementRef> fixture.componentInstance[viewChildProperty].nativeElement);
+export function viewChildFromFixture<T>(fixture: ComponentFixture<T>, viewChildProperty: string): Element {
+    return (<HTMLElement> fixture.componentInstance[viewChildProperty].nativeElement);
 }
 
 export function formElementFromFixture<T>(fixture: ComponentFixture<T>, formControlName: string): Element {
@@ -90,13 +99,14 @@ export function childComponentsFromFixture<T>(fixture: ComponentFixture<{}>, dom
     return (<{}> elementsFromFixture(fixture, domQuery)) as T[];
 }
 
-export function formElementsFromFixture<T>(fixture: ComponentFixture<T>, formControlName: string): Element[] {
-    return elementsFromFixture(fixture, getFormControlDomQuery(formControlName));
-}
-
 export function elementsFromFixture<T>(fixture: ComponentFixture<T>, domQuery: string): Element[] {
     const nativeElement = getNativeElement(fixture);
     return elementsByQuery(nativeElement, domQuery);
+}
+
+export function configureTestEnvironment(moduleDef: TestModuleMetadata) {
+    return TestBed
+        .configureTestingModule(moduleDef);
 }
 
 function getNativeElement<T>(fixture: ComponentFixture<T>): HTMLElement {
