@@ -5,6 +5,7 @@ export declare function setupComponentTest(moduleDef: TestModuleMetadata): void;
 export declare function configureComponentTestEnvironment(moduleDef: TestModuleMetadata): void;
 export declare function mergeModuleDefs(...moduleDefs: TestModuleMetadata[]): TestModuleMetadata;
 export declare function createComponent<T>(component: Type<T>): ComponentFixture<T>;
+export declare function forceChangeDetection<T>(fixture: ComponentFixture<T>): void;
 export declare function expectComponent<T>(fixture: ComponentFixture<T>): jasmine.Matchers<T>;
 export declare function expectElementFromFixture<T>(fixture: ComponentFixture<T>, domQuery?: string): jasmine.Matchers<{}>;
 export declare function expectElementsFromFixture<T>(fixture: ComponentFixture<T>, domQuery: string): jasmine.ArrayLikeMatchers<{}>;

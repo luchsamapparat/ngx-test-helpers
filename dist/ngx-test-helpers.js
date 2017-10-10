@@ -89,6 +89,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (immutable) */ __webpack_exports__["configureComponentTestEnvironment"] = configureComponentTestEnvironment;
 /* harmony export (immutable) */ __webpack_exports__["mergeModuleDefs"] = mergeModuleDefs;
 /* harmony export (immutable) */ __webpack_exports__["createComponent"] = createComponent;
+/* harmony export (immutable) */ __webpack_exports__["forceChangeDetection"] = forceChangeDetection;
 /* harmony export (immutable) */ __webpack_exports__["expectComponent"] = expectComponent;
 /* harmony export (immutable) */ __webpack_exports__["expectElementFromFixture"] = expectElementFromFixture;
 /* harmony export (immutable) */ __webpack_exports__["expectElementsFromFixture"] = expectElementsFromFixture;
@@ -150,6 +151,12 @@ function mergeModuleDefs() {
 }
 function createComponent(component) {
     return __WEBPACK_IMPORTED_MODULE_1__angular_core_testing__["TestBed"].createComponent(component);
+}
+function forceChangeDetection(fixture) {
+    // Forces change detection even on components with change detection set to OnPush
+    // see https://github.com/angular/angular/issues/12313#issuecomment-300429985
+    // tslint:disable-next-line
+    fixture.changeDetectorRef._view.nodes[0].componentView.state |= (1 << 3);
 }
 function expectComponent(fixture) {
     return expect(fixture.componentInstance);

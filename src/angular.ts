@@ -58,6 +58,13 @@ export function createComponent<T>(component: Type<T>) {
     return TestBed.createComponent<T>(component);
 }
 
+export function forceChangeDetection<T>(fixture: ComponentFixture<T>) {
+    // Forces change detection even on components with change detection set to OnPush
+    // see https://github.com/angular/angular/issues/12313#issuecomment-300429985
+    // tslint:disable-next-line
+    (<any> fixture.changeDetectorRef)._view.nodes[0].componentView.state |= (1 << 3);
+}
+
 export function expectComponent<T>(fixture: ComponentFixture<T>) {
     return expect(fixture.componentInstance);
 }

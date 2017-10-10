@@ -145,6 +145,34 @@ describe('AppComponent', () => {
 });
 ```
 
+## forceChangeDetection
+
+```ts
+function forceChangeDetection<T>(fixture: ComponentFixture<T>): void
+```
+
+When testing components that are configured with an `OnPush` change detection strategy, a call to `fixture.detectChanges()` does not trigger Angular's change detection to run. Change detection for those components only runs when the host component passes new values. One way to solve this issue in unit tests is to use a [test host component](https://angular.io/guide/testing#test-a-component-inside-a-test-host-component). However, this is cumbersome and pollutes tests with a lot of boilerplate code. A workaround for this issue is a hack described in a comment in [this GitHub issue](https://github.com/angular/angular/issues/12313#issuecomment-300429985). This method wraps the workaround in a convenient method.
+
+As this method directly accesses internal, non-public properties of Angular, it should be noted that this method may fail in a future Angular version.
+
+### API
+
+| Param     | Type                  | Description                                |
+|-----------|-----------------------|--------------------------------------------|
+| `fixture` | `ComponentFixture<T>` | The component fixture for the expectation. |
+
+### Example
+
+```ts
+it('should create', () => {
+    fixture.componentIntance.buttonIsDisabled = true;
+
+    forceChangeDetection(fixture);
+
+    expectElementFromFixture(fixture, 'button').toBeDisabled();
+});
+```
+
 ## expectComponent
 
 ```ts
@@ -243,7 +271,7 @@ This example uses [Jasmine Dom Matchers](https://github.com/charleshansen/jasmin
 
 ```ts
 it('has a disabled comment field', () => {
-    expectFormElementFromFixture(fixture, 'comment').toHaveProp('disabled');
+    expectFormElementFromFixture(fixture, 'comment').toBeDisabled();
 });
 ```
 
