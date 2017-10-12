@@ -9,5 +9,5 @@ export interface ReducerConfig<T> {
 export declare function configureEffectsTestEnvironment<T>(EffectsClass: {}, actionsFn: () => Observable<Action>, moduleDef: TestModuleMetadata, reducerConfig: ReducerConfig<T>, appState?: T): void;
 export declare function getModuleDefForStore<T>(reducerConfig: ReducerConfig<T>, appState?: T): TestModuleMetadata;
 export declare function getAppState<T>(stateFn: (T) => void): void;
-export declare function expectActionToBeDispatched(fixture: ComponentFixture<{}>, actionType: string, triggerFn?: () => void): void;
+export declare function expectActionToBeDispatched(fixture: ComponentFixture<{}>, actionType: string, triggerFn?: () => void, payload?: any): void;
 export declare function expectActionNotToBeDispatched(fixture: ComponentFixture<{}>, actionType: string, triggerFn?: () => void): void;

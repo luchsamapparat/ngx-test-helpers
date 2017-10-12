@@ -634,26 +634,32 @@ describe('AppComponent', () => {
 ## expectActionToBeDispatched
 
 ```ts
-function expectActionToBeDispatched(fixture: ComponentFixture<{}>, actionType: string, triggerFn?: () => void): void
+function expectActionToBeDispatched(fixture: ComponentFixture<{}>, actionType: string, triggerFn?: () => void, payload?: any): void
 ```
 
 Tests if the given action has been dispatched. Optionally, a trigger function may be passed which is used to trigger the action.
 
 ### API
 
-| Param        | Type                  | Description                                           |
-|--------------|-----------------------|-------------------------------------------------------|
-| `fixture`    | `ComponentFixture<T>` | The component fixture for the expectation.            |
-| `actionType` | `string`              | The type of the action to check against.              |
-| `triggerFn`  | `() => void`          | A function that leads to the action to be dispatched. |
+| Param        | Type                  | Description                                                    |
+|--------------|-----------------------|----------------------------------------------------------------|
+| `fixture`    | `ComponentFixture<T>` | The component fixture for the expectation.                     |
+| `actionType` | `string`              | The type of the action to check against.                       |
+| `triggerFn`  | `() => void`          | A function that leads to the action to be dispatched.          |
+| `payload`    | `any`                 | Any value to match the action's payload against via `isEqual`. |
 
 ### Example
 
 ```ts
 it('dispatches a count action when the onClickCount handler is called', () => {
-    expectActionToBeDispatched(fixture, ActionType.Count, () => {
-        fixture.componentInstance.onClickCount();
-    });
+    expectActionToBeDispatched(
+        fixture,
+        ActionType.Count,#
+        () => {
+            fixture.componentInstance.onClickCount();
+        },
+        { value: 1 }
+    );
 });
 ```
 
@@ -695,10 +701,10 @@ Write expectations for a DOM element.
 
 ### API
 
-| Param     | Type                  | Description                                |
-|-----------|-----------------------|--------------------------------------------|
-| `rootElement` | `Element` | The root element for the expectation. |
-| `domQuery` | `string` | A DOM query as required by `Element.querySelector`. |
+| Param         | Type      | Description                                         |
+|---------------|-----------|-----------------------------------------------------|
+| `rootElement` | `Element` | The root element for the expectation.               |
+| `domQuery`    | `string`  | A DOM query as required by `Element.querySelector`. |
 
 ### Example
 
@@ -720,10 +726,10 @@ Write expectations for an array of DOM elements.
 
 ### API
 
-| Param     | Type                  | Description                                |
-|-----------|-----------------------|--------------------------------------------|
-| `rootElement` | `Element` | The root element for the expectation. |
-| `domQuery` | `string` | A DOM query as required by `Element.querySelectorAll`. |
+| Param         | Type      | Description                                            |
+|---------------|-----------|--------------------------------------------------------|
+| `rootElement` | `Element` | The root element for the expectation.                  |
+| `domQuery`    | `string`  | A DOM query as required by `Element.querySelectorAll`. |
 
 ### Example
 
@@ -746,10 +752,10 @@ Returns a child element matching the given DOM query.
 
 ### API
 
-| Param     | Type                  | Description                                |
-|-----------|-----------------------|--------------------------------------------|
+| Param         | Type      | Description                                               |
+|---------------|-----------|-----------------------------------------------------------|
 | `rootElement` | `Element` | The root element from which to query for a child element. |
-| `domQuery` | `string` | A DOM query as required by `Element.querySelector`. |
+| `domQuery`    | `string`  | A DOM query as required by `Element.querySelector`.       |
 
 ### Example
 
@@ -772,10 +778,10 @@ Returns an array of child elements matching the given DOM query.
 
 ### API
 
-| Param     | Type                  | Description                                |
-|-----------|-----------------------|--------------------------------------------|
+| Param         | Type      | Description                                              |
+|---------------|-----------|----------------------------------------------------------|
 | `rootElement` | `Element` | The root element from which to query for child elements. |
-| `domQuery` | `string` | A DOM query as required by `Element.querySelectorAll`. |
+| `domQuery`    | `string`  | A DOM query as required by `Element.querySelectorAll`.   |
 
 ### Example
 
@@ -798,10 +804,10 @@ Returns an array of child elements matching the given DOM query casted as the gi
 
 ### API
 
-| Param     | Type                  | Description                                |
-|-----------|-----------------------|--------------------------------------------|
+| Param         | Type      | Description                                              |
+|---------------|-----------|----------------------------------------------------------|
 | `rootElement` | `Element` | The root element from which to query for child elements. |
-| `domQuery` | `string` | A DOM query as required by `Element.querySelectorAll`. |
+| `domQuery`    | `string`  | A DOM query as required by `Element.querySelectorAll`.   |
 
 ### Example
 

@@ -308,21 +308,38 @@ function getModuleDefForStore(reducerConfig, appState) {
 function getAppState(stateFn) {
     getStore().subscribe(function (appState) { return stateFn(appState); });
 }
-function expectActionToBeDispatched(fixture, actionType, triggerFn) {
-    expect(triggerAndWatchForActionCall(fixture, actionType, triggerFn)).not.toBeUndefined();
+// tslint:disable-next-line:no-any
+function expectActionToBeDispatched(fixture, actionType, triggerFn, payload) {
+    var action = triggerAndWatchForAction(fixture, actionType, triggerFn);
+    expect(action).not.toBeUndefined();
+    if (!Object(__WEBPACK_IMPORTED_MODULE_3_lodash__["isUndefined"])(payload)) {
+        // tslint:disable-next-line:no-string-literal
+        expect(action['payload']).toEqual(payload);
+    }
 }
 function expectActionNotToBeDispatched(fixture, actionType, triggerFn) {
-    expect(triggerAndWatchForActionCall(fixture, actionType, triggerFn)).toBeUndefined();
+    var action = triggerAndWatchForAction(fixture, actionType, triggerFn);
+    expect(action).toBeUndefined();
 }
 // tslint:disable-next-line:no-empty
-function triggerAndWatchForActionCall(fixture, actionType, triggerFn) {
-    if (triggerFn === void 0) { triggerFn = function () { }; }
-    var storeDispatchSpy = spyOn(__WEBPACK_IMPORTED_MODULE_0__angular_core_testing__["TestBed"].get(__WEBPACK_IMPORTED_MODULE_2__ngrx_store__["Store"]), 'dispatch').and.callThrough();
+// tslint:disable-next-line:no-any
+function triggerAndWatchForAction(fixture, actionType, triggerFn) {
+    if (triggerFn === void 0) { triggerFn = function () { return null; }; }
+    var store = __WEBPACK_IMPORTED_MODULE_0__angular_core_testing__["TestBed"].get(__WEBPACK_IMPORTED_MODULE_2__ngrx_store__["Store"]);
+    var storeDispatchSpy;
+    if (Object(__WEBPACK_IMPORTED_MODULE_3_lodash__["isUndefined"])(store.dispatch.calls)) {
+        storeDispatchSpy = spyOn(store, 'dispatch').and.callThrough();
+    }
+    else {
+        storeDispatchSpy = store.dispatch;
+        storeDispatchSpy.calls.reset();
+    }
     triggerFn();
     fixture.detectChanges();
-    return storeDispatchSpy.calls
+    var expectedCall = storeDispatchSpy.calls
         .all()
         .find(function (call) { return (!Object(__WEBPACK_IMPORTED_MODULE_3_lodash__["isUndefined"])(call.args[0]) && (call.args[0].type === actionType)); });
+    return Object(__WEBPACK_IMPORTED_MODULE_3_lodash__["isUndefined"])(expectedCall) ? expectedCall : expectedCall.args[0];
 }
 function getStore() {
     return __WEBPACK_IMPORTED_MODULE_0__angular_core_testing__["TestBed"].get(__WEBPACK_IMPORTED_MODULE_2__ngrx_store__["Store"]);
