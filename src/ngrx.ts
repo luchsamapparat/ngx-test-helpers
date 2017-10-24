@@ -2,7 +2,7 @@ import { InjectionToken, ModuleWithProviders } from '@angular/core';
 import { ComponentFixture, TestBed, TestModuleMetadata, inject } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action, ActionReducer, ActionReducerMap, Store, StoreModule, combineReducers } from '@ngrx/store';
-import { isUndefined } from 'lodash';
+import { isUndefined } from 'lodash-es';
 import { Observable } from 'rxjs/Observable';
 import { configureTestEnvironment, mergeModuleDefs } from './angular';
 

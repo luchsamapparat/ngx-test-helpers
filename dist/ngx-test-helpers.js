@@ -1,303 +1,267 @@
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("lodash"), require("@angular/core/testing"), require("@angular/core"), require("@ngrx/effects/testing"), require("@ngrx/store"));
-	else if(typeof define === 'function' && define.amd)
-		define("ngx-test-helpers", ["lodash", "@angular/core/testing", "@angular/core", "@ngrx/effects/testing", "@ngrx/store"], factory);
-	else if(typeof exports === 'object')
-		exports["ngx-test-helpers"] = factory(require("lodash"), require("@angular/core/testing"), require("@angular/core"), require("@ngrx/effects/testing"), require("@ngrx/store"));
-	else
-		root["ngx-test-helpers"] = factory(root["lodash"], root["@angular/core/testing"], root["@angular/core"], root["@ngrx/effects/testing"], root["@ngrx/store"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_5__, __WEBPACK_EXTERNAL_MODULE_7__, __WEBPACK_EXTERNAL_MODULE_8__) {
-return /******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
-/******/ })
-/************************************************************************/
-/******/ ([
-/* 0 */
-/***/ (function(module, exports) {
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { isArray, isUndefined, mergeWith, toArray } from 'lodash-es';
+import { provideMockActions } from '@ngrx/effects/testing';
+import { Store, StoreModule } from '@ngrx/store';
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_0__;
+/**
+ * @param {?} rootElement
+ * @param {?} domQuery
+ * @return {?}
+ */
+function expectElement(rootElement, domQuery) {
+    return expect(elementByQuery(rootElement, domQuery));
+}
+/**
+ * @param {?} rootElement
+ * @param {?} domQuery
+ * @return {?}
+ */
+function expectElements(rootElement, domQuery) {
+    return expect(elementsByQuery(rootElement, domQuery));
+}
+/**
+ * @param {?} rootElement
+ * @param {?} domQuery
+ * @return {?}
+ */
+function elementByQuery(rootElement, domQuery) {
+    return rootElement.querySelector(domQuery);
+}
+/**
+ * @param {?} rootElement
+ * @param {?} domQuery
+ * @return {?}
+ */
+function elementsByQuery(rootElement, domQuery) {
+    return toArray(rootElement.querySelectorAll(domQuery));
+}
+/**
+ * @template T
+ * @param {?} rootElement
+ * @param {?} domQuery
+ * @return {?}
+ */
+function childComponentsByQuery(rootElement, domQuery) {
+    return /** @type {?} */ (((elementsByQuery(rootElement, domQuery))));
+}
 
-/***/ }),
-/* 1 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (immutable) */ __webpack_exports__["setupComponentTest"] = setupComponentTest;
-/* harmony export (immutable) */ __webpack_exports__["configureComponentTestEnvironment"] = configureComponentTestEnvironment;
-/* harmony export (immutable) */ __webpack_exports__["mergeModuleDefs"] = mergeModuleDefs;
-/* harmony export (immutable) */ __webpack_exports__["createComponent"] = createComponent;
-/* harmony export (immutable) */ __webpack_exports__["forceChangeDetection"] = forceChangeDetection;
-/* harmony export (immutable) */ __webpack_exports__["expectComponent"] = expectComponent;
-/* harmony export (immutable) */ __webpack_exports__["expectElementFromFixture"] = expectElementFromFixture;
-/* harmony export (immutable) */ __webpack_exports__["expectElementsFromFixture"] = expectElementsFromFixture;
-/* harmony export (immutable) */ __webpack_exports__["expectFormElementFromFixture"] = expectFormElementFromFixture;
-/* harmony export (immutable) */ __webpack_exports__["expectViewChildFromFixture"] = expectViewChildFromFixture;
-/* harmony export (immutable) */ __webpack_exports__["componentFromFixture"] = componentFromFixture;
-/* harmony export (immutable) */ __webpack_exports__["viewChildFromFixture"] = viewChildFromFixture;
-/* harmony export (immutable) */ __webpack_exports__["formElementFromFixture"] = formElementFromFixture;
-/* harmony export (immutable) */ __webpack_exports__["elementFromFixture"] = elementFromFixture;
-/* harmony export (immutable) */ __webpack_exports__["childComponentsFromFixture"] = childComponentsFromFixture;
-/* harmony export (immutable) */ __webpack_exports__["elementsFromFixture"] = elementsFromFixture;
-/* harmony export (immutable) */ __webpack_exports__["configureTestEnvironment"] = configureTestEnvironment;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_core__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core_testing__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core_testing___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__angular_core_testing__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_lodash__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__dom__ = __webpack_require__(3);
-
-
-
-
-var defaultModuleDef = {
+const defaultModuleDef = {
     imports: [],
     providers: [],
     declarations: [],
     schemas: []
 };
+/**
+ * @param {?} moduleDef
+ * @return {?}
+ */
 function setupComponentTest(moduleDef) {
     // workaround to improve component tests: prevent testing module from
     // being reset after every spec
     // see https://github.com/angular/angular/issues/12409
-    var resetTestingModuleFn = __WEBPACK_IMPORTED_MODULE_1__angular_core_testing__["TestBed"].resetTestingModule;
-    beforeAll(function () {
-        __WEBPACK_IMPORTED_MODULE_1__angular_core_testing__["TestBed"].resetTestingModule();
+    const /** @type {?} */ resetTestingModuleFn = TestBed.resetTestingModule;
+    beforeAll(() => {
+        TestBed.resetTestingModule();
         configureComponentTestEnvironment(moduleDef);
-        __WEBPACK_IMPORTED_MODULE_1__angular_core_testing__["TestBed"].resetTestingModule = function () { return __WEBPACK_IMPORTED_MODULE_1__angular_core_testing__["TestBed"]; };
+        TestBed.resetTestingModule = () => TestBed;
     });
-    afterAll(function () {
-        __WEBPACK_IMPORTED_MODULE_1__angular_core_testing__["TestBed"].resetTestingModule = resetTestingModuleFn;
+    afterAll(() => {
+        TestBed.resetTestingModule = resetTestingModuleFn;
     });
 }
-// tslint:disable-next-line:variable-name
+/**
+ * @param {?} moduleDef
+ * @return {?}
+ */
 function configureComponentTestEnvironment(moduleDef) {
     configureTestEnvironment(mergeModuleDefs({
         schemas: [
-            __WEBPACK_IMPORTED_MODULE_0__angular_core__["NO_ERRORS_SCHEMA"]
+            NO_ERRORS_SCHEMA
         ]
     }, moduleDef))
         .compileComponents();
 }
-function mergeModuleDefs() {
-    var moduleDefs = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        moduleDefs[_i] = arguments[_i];
-    }
-    return moduleDefs.reduce(function (moduleDef1, moduleDef2) { return Object(__WEBPACK_IMPORTED_MODULE_2_lodash__["mergeWith"])(moduleDef1, moduleDef2, function (newValue, value) { return Object(__WEBPACK_IMPORTED_MODULE_2_lodash__["isArray"])(newValue) ? newValue.concat(value) : undefined; }); }, defaultModuleDef);
+/**
+ * @param {...?} moduleDefs
+ * @return {?}
+ */
+function mergeModuleDefs(...moduleDefs) {
+    return moduleDefs.reduce((moduleDef1, moduleDef2) => mergeWith(moduleDef1, moduleDef2, (newValue, value) => isArray(newValue) ? newValue.concat(value) : undefined), defaultModuleDef);
 }
+/**
+ * @template T
+ * @param {?} component
+ * @return {?}
+ */
 function createComponent(component) {
-    return __WEBPACK_IMPORTED_MODULE_1__angular_core_testing__["TestBed"].createComponent(component);
+    return TestBed.createComponent(component);
 }
+/**
+ * @template T
+ * @param {?} fixture
+ * @return {?}
+ */
 function forceChangeDetection(fixture) {
     // Forces change detection even on components with change detection set to OnPush
     // see https://github.com/angular/angular/issues/12313#issuecomment-300429985
     // tslint:disable-next-line
-    fixture.changeDetectorRef._view.nodes[0].componentView.state |= (1 << 3);
+    ((fixture.changeDetectorRef))._view.nodes[0].componentView.state |= (1 << 3);
 }
+/**
+ * @template T
+ * @param {?} fixture
+ * @return {?}
+ */
 function expectComponent(fixture) {
     return expect(fixture.componentInstance);
 }
+/**
+ * @template T
+ * @param {?} fixture
+ * @param {?=} domQuery
+ * @return {?}
+ */
 function expectElementFromFixture(fixture, domQuery) {
     return expect(elementFromFixture(fixture, domQuery));
 }
+/**
+ * @template T
+ * @param {?} fixture
+ * @param {?} domQuery
+ * @return {?}
+ */
 function expectElementsFromFixture(fixture, domQuery) {
     return expect(elementsFromFixture(fixture, domQuery));
 }
+/**
+ * @template T
+ * @param {?} fixture
+ * @param {?} formControlName
+ * @return {?}
+ */
 function expectFormElementFromFixture(fixture, formControlName) {
     return expect(elementFromFixture(fixture, getFormControlDomQuery(formControlName)));
 }
+/**
+ * @template T
+ * @param {?} fixture
+ * @param {?} viewChildProperty
+ * @return {?}
+ */
 function expectViewChildFromFixture(fixture, viewChildProperty) {
     return expect(viewChildFromFixture(fixture, viewChildProperty));
 }
+/**
+ * @template T
+ * @param {?} fixture
+ * @return {?}
+ */
 function componentFromFixture(fixture) {
     return fixture.componentInstance;
 }
+/**
+ * @template T
+ * @param {?} fixture
+ * @param {?} viewChildProperty
+ * @return {?}
+ */
 function viewChildFromFixture(fixture, viewChildProperty) {
-    return fixture.componentInstance[viewChildProperty].nativeElement;
+    return ((fixture.componentInstance[viewChildProperty].nativeElement));
 }
+/**
+ * @template T
+ * @param {?} fixture
+ * @param {?} formControlName
+ * @return {?}
+ */
 function formElementFromFixture(fixture, formControlName) {
     return elementFromFixture(fixture, getFormControlDomQuery(formControlName));
 }
+/**
+ * @template T
+ * @param {?} fixture
+ * @param {?=} domQuery
+ * @return {?}
+ */
 function elementFromFixture(fixture, domQuery) {
-    var nativeElement = getNativeElement(fixture);
-    return Object(__WEBPACK_IMPORTED_MODULE_2_lodash__["isUndefined"])(domQuery) ? nativeElement : Object(__WEBPACK_IMPORTED_MODULE_3__dom__["elementByQuery"])(nativeElement, domQuery);
+    const /** @type {?} */ nativeElement = getNativeElement(fixture);
+    return isUndefined(domQuery) ? nativeElement : elementByQuery(nativeElement, domQuery);
 }
+/**
+ * @template T
+ * @param {?} fixture
+ * @param {?} domQuery
+ * @return {?}
+ */
 function childComponentsFromFixture(fixture, domQuery) {
-    return elementsFromFixture(fixture, domQuery);
+    return /** @type {?} */ (((elementsFromFixture(fixture, domQuery))));
 }
+/**
+ * @template T
+ * @param {?} fixture
+ * @param {?} domQuery
+ * @return {?}
+ */
 function elementsFromFixture(fixture, domQuery) {
-    var nativeElement = getNativeElement(fixture);
-    return Object(__WEBPACK_IMPORTED_MODULE_3__dom__["elementsByQuery"])(nativeElement, domQuery);
+    const /** @type {?} */ nativeElement = getNativeElement(fixture);
+    return elementsByQuery(nativeElement, domQuery);
 }
+/**
+ * @param {?} moduleDef
+ * @return {?}
+ */
 function configureTestEnvironment(moduleDef) {
-    return __WEBPACK_IMPORTED_MODULE_1__angular_core_testing__["TestBed"]
+    return TestBed
         .configureTestingModule(moduleDef);
 }
+/**
+ * @template T
+ * @param {?} fixture
+ * @return {?}
+ */
 function getNativeElement(fixture) {
     fixture.detectChanges();
     return fixture.nativeElement;
 }
+/**
+ * @param {?} formControlName
+ * @return {?}
+ */
 function getFormControlDomQuery(formControlName) {
-    return "[formcontrolname=\"" + formControlName + "\"]";
+    return `[formcontrolname="${formControlName}"]`;
 }
 
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
-
-/***/ }),
-/* 3 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (immutable) */ __webpack_exports__["expectElement"] = expectElement;
-/* harmony export (immutable) */ __webpack_exports__["expectElements"] = expectElements;
-/* harmony export (immutable) */ __webpack_exports__["elementByQuery"] = elementByQuery;
-/* harmony export (immutable) */ __webpack_exports__["elementsByQuery"] = elementsByQuery;
-/* harmony export (immutable) */ __webpack_exports__["childComponentsByQuery"] = childComponentsByQuery;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_lodash__);
-
-function expectElement(rootElement, domQuery) {
-    return expect(elementByQuery(rootElement, domQuery));
-}
-function expectElements(rootElement, domQuery) {
-    return expect(elementsByQuery(rootElement, domQuery));
-}
-function elementByQuery(rootElement, domQuery) {
-    return rootElement.querySelector(domQuery);
-}
-function elementsByQuery(rootElement, domQuery) {
-    return Object(__WEBPACK_IMPORTED_MODULE_0_lodash__["toArray"])(rootElement.querySelectorAll(domQuery));
-}
-function childComponentsByQuery(rootElement, domQuery) {
-    return elementsByQuery(rootElement, domQuery);
-}
-
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(1);
-__webpack_require__(3);
-module.exports = __webpack_require__(6);
-
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_5__;
-
-/***/ }),
-/* 6 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (immutable) */ __webpack_exports__["configureEffectsTestEnvironment"] = configureEffectsTestEnvironment;
-/* harmony export (immutable) */ __webpack_exports__["getModuleDefForStore"] = getModuleDefForStore;
-/* harmony export (immutable) */ __webpack_exports__["getAppState"] = getAppState;
-/* harmony export (immutable) */ __webpack_exports__["expectActionToBeDispatched"] = expectActionToBeDispatched;
-/* harmony export (immutable) */ __webpack_exports__["expectActionNotToBeDispatched"] = expectActionNotToBeDispatched;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core_testing__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core_testing___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_core_testing__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ngrx_effects_testing__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ngrx_effects_testing___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__ngrx_effects_testing__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngrx_store__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngrx_store___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__ngrx_store__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_lodash__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_lodash__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular__ = __webpack_require__(1);
-
-
-
-
-
+/**
+ * @template T
+ * @param {?} EffectsClass
+ * @param {?} actionsFn
+ * @param {?} moduleDef
+ * @param {?} reducerConfig
+ * @param {?=} appState
+ * @return {?}
+ */
 function configureEffectsTestEnvironment(
     // tslint:disable-next-line:variable-name
     EffectsClass, actionsFn, moduleDef, reducerConfig, appState) {
-    Object(__WEBPACK_IMPORTED_MODULE_4__angular__["configureTestEnvironment"])(Object(__WEBPACK_IMPORTED_MODULE_4__angular__["mergeModuleDefs"])(getModuleDefForStore(reducerConfig, appState), {
+    configureTestEnvironment(mergeModuleDefs(getModuleDefForStore(reducerConfig, appState), {
         providers: [
             EffectsClass,
-            Object(__WEBPACK_IMPORTED_MODULE_1__ngrx_effects_testing__["provideMockActions"])(actionsFn)
+            provideMockActions(actionsFn)
         ]
     }, moduleDef));
 }
+/**
+ * @template T
+ * @param {?} reducerConfig
+ * @param {?=} appState
+ * @return {?}
+ */
 function getModuleDefForStore(reducerConfig, appState) {
     return {
         imports: [
-            __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["StoreModule"].forRoot(reducerConfig.injectionToken, {
-                initialState: Object(__WEBPACK_IMPORTED_MODULE_3_lodash__["isUndefined"])(appState) ? {} : appState
+            StoreModule.forRoot(reducerConfig.injectionToken, {
+                initialState: isUndefined(appState) ? {} : appState
             })
         ],
         providers: [
@@ -305,59 +269,75 @@ function getModuleDefForStore(reducerConfig, appState) {
         ]
     };
 }
+/**
+ * @template T
+ * @param {?} stateFn
+ * @return {?}
+ */
 function getAppState(stateFn) {
-    getStore().subscribe(function (appState) { return stateFn(appState); });
+    getStore().subscribe(appState => stateFn(appState));
 }
-// tslint:disable-next-line:no-any
+/**
+ * @param {?} fixture
+ * @param {?} actionType
+ * @param {?=} triggerFn
+ * @param {?=} payload
+ * @return {?}
+ */
 function expectActionToBeDispatched(fixture, actionType, triggerFn, payload) {
-    var action = triggerAndWatchForAction(fixture, actionType, triggerFn);
+    const /** @type {?} */ action = triggerAndWatchForAction(fixture, actionType, triggerFn);
     expect(action).not.toBeUndefined();
-    if (!Object(__WEBPACK_IMPORTED_MODULE_3_lodash__["isUndefined"])(payload)) {
+    if (!isUndefined(payload)) {
         // tslint:disable-next-line:no-string-literal
         expect(action['payload']).toEqual(payload);
     }
 }
+/**
+ * @param {?} fixture
+ * @param {?} actionType
+ * @param {?=} triggerFn
+ * @return {?}
+ */
 function expectActionNotToBeDispatched(fixture, actionType, triggerFn) {
-    var action = triggerAndWatchForAction(fixture, actionType, triggerFn);
+    const /** @type {?} */ action = triggerAndWatchForAction(fixture, actionType, triggerFn);
     expect(action).toBeUndefined();
 }
-// tslint:disable-next-line
-function triggerAndWatchForAction(fixture, actionType, triggerFn) {
-    if (triggerFn === void 0) { triggerFn = function () { }; }
-    var store = __WEBPACK_IMPORTED_MODULE_0__angular_core_testing__["TestBed"].get(__WEBPACK_IMPORTED_MODULE_2__ngrx_store__["Store"]);
-    var storeDispatchSpy;
-    if (Object(__WEBPACK_IMPORTED_MODULE_3_lodash__["isUndefined"])(store.dispatch.calls)) {
-        storeDispatchSpy = spyOn(store, 'dispatch').and.callThrough();
+/**
+ * @param {?} fixture
+ * @param {?} actionType
+ * @param {?=} triggerFn
+ * @return {?}
+ */
+function triggerAndWatchForAction(fixture, actionType, triggerFn = () => { }) {
+    const /** @type {?} */ store$$1 = TestBed.get(Store);
+    let /** @type {?} */ storeDispatchSpy;
+    if (isUndefined(store$$1.dispatch.calls)) {
+        storeDispatchSpy = spyOn(store$$1, 'dispatch').and.callThrough();
     }
     else {
-        storeDispatchSpy = store.dispatch;
+        storeDispatchSpy = store$$1.dispatch;
         storeDispatchSpy.calls.reset();
     }
     triggerFn();
     fixture.detectChanges();
-    var expectedCall = storeDispatchSpy.calls
+    const /** @type {?} */ expectedCall = storeDispatchSpy.calls
         .all()
-        .find(function (call) { return (!Object(__WEBPACK_IMPORTED_MODULE_3_lodash__["isUndefined"])(call.args[0]) && (call.args[0].type === actionType)); });
-    return Object(__WEBPACK_IMPORTED_MODULE_3_lodash__["isUndefined"])(expectedCall) ? expectedCall : expectedCall.args[0];
+        .find(call => (!isUndefined(call.args[0]) && (call.args[0].type === actionType)));
+    return isUndefined(expectedCall) ? expectedCall : expectedCall.args[0];
 }
+/**
+ * @template T
+ * @return {?}
+ */
 function getStore() {
-    return __WEBPACK_IMPORTED_MODULE_0__angular_core_testing__["TestBed"].get(__WEBPACK_IMPORTED_MODULE_2__ngrx_store__["Store"]);
+    return TestBed.get(Store);
 }
 
+/// <reference types="jasmine" />
 
-/***/ }),
-/* 7 */
-/***/ (function(module, exports) {
+/**
+ * Generated bundle index. Do not edit.
+ */
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_7__;
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_8__;
-
-/***/ })
-/******/ ]);
-});
+export { setupComponentTest, configureComponentTestEnvironment, mergeModuleDefs, createComponent, forceChangeDetection, expectComponent, expectElementFromFixture, expectElementsFromFixture, expectFormElementFromFixture, expectViewChildFromFixture, componentFromFixture, viewChildFromFixture, formElementFromFixture, elementFromFixture, childComponentsFromFixture, elementsFromFixture, configureTestEnvironment, expectElement, expectElements, elementByQuery, elementsByQuery, childComponentsByQuery, configureEffectsTestEnvironment, getModuleDefForStore, getAppState, expectActionToBeDispatched, expectActionNotToBeDispatched };
 //# sourceMappingURL=ngx-test-helpers.js.map

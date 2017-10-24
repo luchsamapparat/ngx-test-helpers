@@ -1,29 +1,18 @@
 {
     "compileOnSave": false,
     "compilerOptions": {
+        "outDir": "./dist/out-tsc",
         "baseUrl": "src",
-        "declaration": true,
-        "declarationDir": "../types",
-        "module": "es2015",
-        "moduleResolution": "node",
         "sourceMap": true,
-        "target": "es5",
+        "declaration": false,
+        "moduleResolution": "node",
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "strictNullChecks": true,
-        "skipLibCheck": true,
-        "typeRoots": [
-            "node_modules/@types"
-        ],
-        "types": [
-            "jasmine"
-        ],
+        "target": "es5",
         "lib": [
-            "es2017",
+            "es2016",
             "dom"
         ]
-    },
-    "exclude": [
-        "node_modules"
-    ]
+    }
 }

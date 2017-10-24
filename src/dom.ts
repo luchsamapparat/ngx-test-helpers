@@ -1,5 +1,5 @@
 import { ComponentFixture } from '@angular/core/testing';
-import { isUndefined, toArray } from 'lodash';
+import { isUndefined, toArray } from 'lodash-es';
 
 export function expectElement(rootElement: Element, domQuery: string): jasmine.Matchers<{} | null> {
     return expect(elementByQuery(rootElement, domQuery));

@@ -1,6 +1,6 @@
 import { ElementRef, NO_ERRORS_SCHEMA, Type } from '@angular/core';
 import { ComponentFixture, TestBed, TestModuleMetadata } from '@angular/core/testing';
-import { isArray, isUndefined, mergeWith } from 'lodash';
+import { isArray, isUndefined, mergeWith } from 'lodash-es';
 import { elementByQuery, elementsByQuery } from './dom';
 
 const defaultModuleDef: TestModuleMetadata = {
