@@ -69,7 +69,7 @@ export function expectComponent<T>(fixture: ComponentFixture<T>) {
     return expect(fixture.componentInstance);
 }
 
-export function expectElementFromFixture<T>(fixture: ComponentFixture<T>, domQuery?: string): jasmine.Matchers<{}> {
+export function expectElementFromFixture<T>(fixture: ComponentFixture<T>, domQuery?: string): jasmine.Matchers<{} | null> {
     return expect(elementFromFixture(fixture, domQuery));
 }
 
@@ -77,7 +77,7 @@ export function expectElementsFromFixture<T>(fixture: ComponentFixture<T>, domQu
     return expect(elementsFromFixture(fixture, domQuery));
 }
 
-export function expectFormElementFromFixture<T>(fixture: ComponentFixture<T>, formControlName: string): jasmine.Matchers<{}> {
+export function expectFormElementFromFixture<T>(fixture: ComponentFixture<T>, formControlName: string): jasmine.Matchers<{} | null> {
     return expect(elementFromFixture(fixture, getFormControlDomQuery(formControlName)));
 }
 
@@ -93,11 +93,11 @@ export function viewChildFromFixture<T>(fixture: ComponentFixture<T>, viewChildP
     return (<HTMLElement> fixture.componentInstance[viewChildProperty].nativeElement);
 }
 
-export function formElementFromFixture<T>(fixture: ComponentFixture<T>, formControlName: string): Element {
+export function formElementFromFixture<T>(fixture: ComponentFixture<T>, formControlName: string): Element | null {
     return elementFromFixture(fixture, getFormControlDomQuery(formControlName));
 }
 
-export function elementFromFixture<T>(fixture: ComponentFixture<T>, domQuery?: string): Element {
+export function elementFromFixture<T>(fixture: ComponentFixture<T>, domQuery?: string): Element | null {
     const nativeElement = getNativeElement(fixture);
     return isUndefined(domQuery) ? nativeElement : elementByQuery(nativeElement, domQuery);
 }

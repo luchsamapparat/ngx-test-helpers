@@ -321,10 +321,9 @@ function expectActionNotToBeDispatched(fixture, actionType, triggerFn) {
     var action = triggerAndWatchForAction(fixture, actionType, triggerFn);
     expect(action).toBeUndefined();
 }
-// tslint:disable-next-line:no-empty
-// tslint:disable-next-line:no-any
+// tslint:disable-next-line
 function triggerAndWatchForAction(fixture, actionType, triggerFn) {
-    if (triggerFn === void 0) { triggerFn = function () { return null; }; }
+    if (triggerFn === void 0) { triggerFn = function () { }; }
     var store = __WEBPACK_IMPORTED_MODULE_0__angular_core_testing__["TestBed"].get(__WEBPACK_IMPORTED_MODULE_2__ngrx_store__["Store"]);
     var storeDispatchSpy;
     if (Object(__WEBPACK_IMPORTED_MODULE_3_lodash__["isUndefined"])(store.dispatch.calls)) {

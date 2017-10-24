@@ -66,9 +66,8 @@ export function expectActionNotToBeDispatched(fixture: ComponentFixture<{}>, act
     expect(action).toBeUndefined();
 }
 
-// tslint:disable-next-line:no-empty
-// tslint:disable-next-line:no-any
-function triggerAndWatchForAction(fixture: ComponentFixture<{}>, actionType: string, triggerFn = () => null): Action {
+// tslint:disable-next-line
+function triggerAndWatchForAction(fixture: ComponentFixture<{}>, actionType: string, triggerFn = () => {}): Action {
     const store = TestBed.get(Store);
     let storeDispatchSpy;
 

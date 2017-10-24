@@ -1,7 +1,7 @@
 import { ComponentFixture } from '@angular/core/testing';
 import { isUndefined, toArray } from 'lodash';
 
-export function expectElement(rootElement: Element, domQuery: string): jasmine.Matchers<{}> {
+export function expectElement(rootElement: Element, domQuery: string): jasmine.Matchers<{} | null> {
     return expect(elementByQuery(rootElement, domQuery));
 }
 
@@ -9,7 +9,7 @@ export function expectElements(rootElement: Element, domQuery: string): jasmine.
     return expect(elementsByQuery(rootElement, domQuery));
 }
 
-export function elementByQuery(rootElement: Element, domQuery: string): Element {
+export function elementByQuery(rootElement: Element, domQuery: string): Element | null {
     return rootElement.querySelector(domQuery);
 }
 

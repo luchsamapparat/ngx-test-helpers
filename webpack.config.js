@@ -23,21 +23,7 @@ module.exports = {
                 loader: 'ts-loader',
                 exclude: /node_modules/
             }
-        ],
-        // rules: [
-        //     {
-        //         test: /\.ts$/,
-        //         enforce: 'pre',
-        //         loader: 'tslint-loader',
-        //         exclude: /node_modules/,
-        //         options: {
-        //             tslint: {
-        //                 // emitErrors: true,
-        //                 // failOnHint: true
-        //             }
-        //         }
-        //     }
-        // ]
+        ]
     },
     resolve: {
         modules: [
