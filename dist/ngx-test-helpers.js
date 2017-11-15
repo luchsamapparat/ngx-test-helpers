@@ -1,6 +1,6 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { isArray, isUndefined, mergeWith, toArray } from 'lodash-es';
+import { cloneDeep, isArray, isUndefined, mergeWith, toArray } from 'lodash-es';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Store, StoreModule } from '@ngrx/store';
 
@@ -87,7 +87,7 @@ function configureComponentTestEnvironment(moduleDef) {
  * @return {?}
  */
 function mergeModuleDefs(...moduleDefs) {
-    return moduleDefs.reduce((moduleDef1, moduleDef2) => mergeWith(moduleDef1, moduleDef2, (newValue, value) => isArray(newValue) ? newValue.concat(value) : undefined), defaultModuleDef);
+    return moduleDefs.reduce((moduleDef1, moduleDef2) => mergeWith(moduleDef1, moduleDef2, (newValue, value) => isArray(newValue) ? newValue.concat(value) : undefined), cloneDeep(defaultModuleDef));
 }
 /**
  * @template T

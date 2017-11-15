@@ -1,6 +1,6 @@
 {
   "name": "ngx-test-helpers",
-  "version": "3.0.0",
+  "version": "3.0.2",
   "description": "A collection of helpers for testing Angular applications ",
   "scripts": {
     "build": "ng-packagr -p ng-package.json",

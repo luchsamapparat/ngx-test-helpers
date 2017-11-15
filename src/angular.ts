@@ -1,6 +1,6 @@
 import { ElementRef, NO_ERRORS_SCHEMA, Type } from '@angular/core';
 import { ComponentFixture, TestBed, TestModuleMetadata } from '@angular/core/testing';
-import { isArray, isUndefined, mergeWith } from 'lodash-es';
+import { cloneDeep, isArray, isUndefined, mergeWith } from 'lodash-es';
 import { elementByQuery, elementsByQuery } from './dom';
 
 const defaultModuleDef: TestModuleMetadata = {
@@ -50,7 +50,7 @@ export function mergeModuleDefs(...moduleDefs: TestModuleMetadata[]) {
             moduleDef2,
             (newValue, value) => isArray(newValue) ? newValue.concat(value) : undefined
         ),
-        defaultModuleDef
+        cloneDeep(defaultModuleDef)
     );
 }
 
