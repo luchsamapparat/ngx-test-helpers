@@ -1,9 +1,10 @@
-import { InjectionToken, ModuleWithProviders } from '@angular/core';
-import { ComponentFixture, TestBed, TestModuleMetadata, inject } from '@angular/core/testing';
+import { InjectionToken } from '@angular/core';
+import { ComponentFixture, TestBed, TestModuleMetadata } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { Action, ActionReducer, ActionReducerMap, Store, StoreModule, combineReducers } from '@ngrx/store';
+import { Action, ActionReducerMap, Store, StoreModule } from '@ngrx/store';
 import { isUndefined } from 'lodash-es';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/take';
 import { configureTestEnvironment, mergeModuleDefs } from './angular';
 
 export interface ReducerConfig<T> {
@@ -47,7 +48,9 @@ export function getModuleDefForStore<T>(reducerConfig: ReducerConfig<T>, appStat
 }
 
 export function getAppState<T>(stateFn: (T) => void) {
-    getStore().subscribe(appState => stateFn(appState));
+    getStore()
+        .take(1)
+        .subscribe(appState => stateFn(appState));
 }
 
 // tslint:disable-next-line:no-any
