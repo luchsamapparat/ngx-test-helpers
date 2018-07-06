@@ -1,4 +1,4 @@
-import { ElementRef, NO_ERRORS_SCHEMA, Type } from '@angular/core';
+import { NO_ERRORS_SCHEMA, Type } from '@angular/core';
 import { ComponentFixture, TestBed, TestModuleMetadata } from '@angular/core/testing';
 import { cloneDeep, isArray, isUndefined, mergeWith } from 'lodash-es';
 import { elementByQuery, elementsByQuery } from './dom';
@@ -77,10 +77,6 @@ export function expectElementsFromFixture<T>(fixture: ComponentFixture<T>, domQu
     return expect(elementsFromFixture(fixture, domQuery));
 }
 
-export function expectFormElementFromFixture<T>(fixture: ComponentFixture<T>, formControlName: string): jasmine.Matchers<{} | null> {
-    return expect(elementFromFixture(fixture, getFormControlDomQuery(formControlName)));
-}
-
 export function expectViewChildFromFixture<T>(fixture: ComponentFixture<T>, viewChildProperty: string): jasmine.Matchers<{}> {
     return expect(viewChildFromFixture(fixture, viewChildProperty));
 }
@@ -100,10 +96,6 @@ export function formElementFromFixture<T>(fixture: ComponentFixture<T>, formCont
 export function elementFromFixture<T>(fixture: ComponentFixture<T>, domQuery?: string): Element | null {
     const nativeElement = getNativeElement(fixture);
     return isUndefined(domQuery) ? nativeElement : elementByQuery(nativeElement, domQuery);
-}
-
-export function childComponentsFromFixture<T>(fixture: ComponentFixture<{}>, domQuery: string): T[] {
-    return (<{}> elementsFromFixture(fixture, domQuery)) as T[];
 }
 
 export function elementsFromFixture<T>(fixture: ComponentFixture<T>, domQuery: string): Element[] {
